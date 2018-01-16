@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>入门指南 - Hammer.js中文</title>
+
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Add multi-touch gestures to your webpage.">
+    <link rel="canonical" href="/getting-started/">
+
+    <link rel="icon" href="https://hammerjs.github.io/assets/img/favicon.ico">
+    <link rel="stylesheet" href="https://hammerjs.github.io/assets/css/index.css">
+</head>
+
+<body>
+<div class="header">
+    <div class="row">
+        <div class="medium-4 columns">
+            <a class="logo" href="../">Hammer.js中文</a>
+        </div>
+        <div class="medium-8 columns">
+            <ul class="inline-list main-nav">
+                <li><a href="../getting-started/">文档</a></li>
+                <li><a href="https://stackoverflow.com/questions/tagged/hammer.js">支持</a></li>
+                <li><a href="https://github.com/hammerjs/hammer.js/blob/master/CONTRIBUTING.md">贡献</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="medium-3 columns">
+        <a href="#" class="toggle-sidebar">Toggle navigation</a>
+        <div class="sidebar">
+            <h4>概要</h4>
+            <ul class="side-nav">
+                <li><a href="/getting-started">入门指南</a></li>
+                <li><a href="/tips">Tips 'n Tricks</a></li>
+                <li><a href="/browser-support">Browser support</a></li>
+                <li><a href="/examples">Examples</a></li>
+                <li><a href="/changelog">Changelog</a></li>
+            </ul>
+            <h4>Hammer</h4>
+            <ul class="side-nav">
+                <li><a href="/api">API</a></li>
+                <li><a href="/jsdoc">JSDoc</a></li>
+                <li><a href="/touch-action">Touch-action</a></li>
+                <li><a href="/recognize-with">Recognize With</a></li>
+                <li><a href="/require-failure">Require Failure</a></li>
+                <li><a href="/toggle-recognizer">Toggle Recognizer</a></li>
+            </ul>
+            <h4>Recognizers</h4>
+            <ul class="side-nav">
+                <li><a href="/recognizer-pan">Pan</a></li>
+                <li><a href="/recognizer-pinch">Pinch</a></li>
+                <li><a href="/recognizer-press">Press</a></li>
+                <li><a href="/recognizer-rotate">Rotate</a></li>
+                <li><a href="/recognizer-swipe">Swipe</a></li>
+                <li><a href="/recognizer-tap">Tap</a></li>
+            </ul>
+            <h4>Extensions</h4>
+            <ul class="side-nav">
+                <li><a href="/jquery-plugin">jQuery plugin</a></li>
+                <li><a href="/angularjs-directive">Angular.js directive</a></li>
+                <li><a href="/touch-emulator">Emulate multi-touch</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="medium-9 columns">
+        <h1 id="getting-started">入门指南</h1>
+        <p>Hammer是一个可以通过触摸、鼠标和点击事件来识别手势的开放源码类库。
+            它没有任何依赖项并且很小，只有大于 <strong>7.34 kB 缩小 + gzip压缩</strong>!</p>
+
+        <ul>
+            <li><a href="https://hammerjs.github.io/dist/hammer.min.js">缩小的代码 (v2.0.8)</a></li>
+            <li><a href="https://hammerjs.github.io/dist/hammer.js">未压缩的代码 (v2.0.8)</a></li>
+            <li><a href="https://hammerjs.github.io/changelog">更新日志</a></li>
+            <li><a href="https://github.com/hammerjs/hammer.js/tree/master/">浏览源代码 GitHub</a></li>
+            <li>寻找1.1版班？ <a href="https://github.com/hammerjs/hammer.js/tree/1.1.x">你可以在这里找到它。</a></li>
+        </ul>
+
+        <blockquote>
+            <h5 id="whats-new-in-20">2.0有什么新东西？</h5>
+            <p>它是完全重写的，可重复使用的手势识别器，并通过尽可能使用触摸动作的CSS属性改进了对最近的移动浏览器的支持。 同时还支持多个Hammer实例，因此可以实现多点触控。</p>
+        </blockquote>
+
+        <hr />
+
+        <h2 id="usage">用法</h2>
+
+        <p>它很容易使用，只需包含库并创建一个新的实例。</p>
+
+        <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">hammertime</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Hammer</span><span class="p">(</span><span class="nx">myElement</span><span class="p">,</span> <span class="nx">myOptions</span><span class="p">);</span>
+<span class="nx">hammertime</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'pan'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">ev</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">ev</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+        <p>默认情况下，它添加一组 <code class="highlighter-rouge">tap</code>, <code class="highlighter-rouge">doubletap</code>, <code class="highlighter-rouge">press</code>, <em>水平位置</em> <code class="highlighter-rouge">pan</code> 和 <code class="highlighter-rouge">swipe</code>, 和多点触摸 <code class="highlighter-rouge">pinch</code> 和 <code class="highlighter-rouge">rotate</code> 识别。 pinch和rotate识别在默认情况下是禁用的，因为它们会阻塞元素，但您可以通过调用以下命令来启用它们：</p>
+
+        <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">hammertime</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'pinch'</span><span class="p">).</span><span class="kd">set</span><span class="p">({</span> <span class="na">enable</span><span class="p">:</span> <span class="kc">true</span> <span class="p">});</span>
+<span class="nx">hammertime</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'rotate'</span><span class="p">).</span><span class="kd">set</span><span class="p">({</span> <span class="na">enable</span><span class="p">:</span> <span class="kc">true</span> <span class="p">});</span>
+</code></pre></div></div>
+
+        <p>启用垂直或所有方向的 <code class="highlighter-rouge">pan</code> and <code class="highlighter-rouge">swipe</code> 识别:</p>
+
+        <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">hammertime</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'pan'</span><span class="p">).</span><span class="kd">set</span><span class="p">({</span> <span class="na">direction</span><span class="p">:</span> <span class="nx">Hammer</span><span class="p">.</span><span class="nx">DIRECTION_ALL</span> <span class="p">});</span>
+<span class="nx">hammertime</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'swipe'</span><span class="p">).</span><span class="kd">set</span><span class="p">({</span> <span class="na">direction</span><span class="p">:</span> <span class="nx">Hammer</span><span class="p">.</span><span class="nx">DIRECTION_VERTICAL</span> <span class="p">});</span>
+</code></pre></div></div>
+
+        <p>此外，建议使用视口元标记，通过禁用双击/缩放缩放功能，可以更多地控制web页面。 支持触摸操作属性的最新浏览器不需要这些功能。</p>
+
+        <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+        <h3 id="more-control">更多的控制</h3>
+        <p>您可以为您的实例设置自己的一组识别器。 这需要更多的代码，但它使您能够更好地控制正在识别的手势。</p>
+
+        <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">mc</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Hammer</span><span class="p">.</span><span class="nx">Manager</span><span class="p">(</span><span class="nx">myElement</span><span class="p">,</span> <span class="nx">myOptions</span><span class="p">);</span>
+
+<span class="nx">mc</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span> <span class="k">new</span> <span class="nx">Hammer</span><span class="p">.</span><span class="nx">Pan</span><span class="p">({</span> <span class="na">direction</span><span class="p">:</span> <span class="nx">Hammer</span><span class="p">.</span><span class="nx">DIRECTION_ALL</span><span class="p">,</span> <span class="na">threshold</span><span class="p">:</span> <span class="mi">0</span> <span class="p">})</span> <span class="p">);</span>
+<span class="nx">mc</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span> <span class="k">new</span> <span class="nx">Hammer</span><span class="p">.</span><span class="nx">Tap</span><span class="p">({</span> <span class="na">event</span><span class="p">:</span> <span class="s1">'quadrupletap'</span><span class="p">,</span> <span class="na">taps</span><span class="p">:</span> <span class="mi">4</span> <span class="p">})</span> <span class="p">);</span>
+
+<span class="nx">mc</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">"pan"</span><span class="p">,</span> <span class="nx">handlePan</span><span class="p">);</span>
+<span class="nx">mc</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">"quadrupletap"</span><span class="p">,</span> <span class="nx">handleTaps</span><span class="p">);</span>
+</code></pre></div></div>
+        <p>上面的例子创建一个实例包含一个 <code class="highlighter-rouge">pan</code> 和一个 <code class="highlighter-rouge">quadrupletap</code> 手势。 您创建的识别器实例按照它们添加的顺序执行，并且当时只能识别一个。</p>
+
+        <p>看到这些页面关于 <a href="https://hammerjs.github.io/recognize-with"><code class="highlighter-rouge">recognizeWith</code></a> and <a href="https://hammerjs.github.io/require-failure"><code class="highlighter-rouge">requireFailure</code></a> 更多详情。</p>
+
+        <h2 id="team">团队</h2>
+        <p>Hammerjs及其相关类库完全由志愿者贡献者开发。</p>
+        <ul>
+            <li><a href="https://github.com/arschmitz">Alexander Schmitz</a> (项目领导)</li>
+            <li><a href="https://github.com/runspired">Chris Thoburn</a></li>
+            <li><a href="https://github.com/jtangelder">Jorik Tangelder</a> (原创者，不活跃)</li>
+        </ul>
+
+        <p><strong>更多的热爱给 <a href="http://eight.nl"><img src="https://hammerjs.github.io/assets/img/eight.png" width="60" alt="Eight Media" align="center" /></a> 为了使这个项目成为可能和开源。</strong></p>
+
+        <p>建议监听 <a href="http://soundcloud.com/eightmedia/hammerhammerhammer">this loop</a> 当使用 hammer.js.</p>
+
+
+
+        <p class="edit-this-page">
+            <a href="https://github.com/hammerjs/hammerjs.github.io/edit/master/getting-started.md">
+                编辑这个页面在 GitHub</a>
+        </p>
+    </div>
+</div>
+<div class="footer">
+    <div class="row">
+        <div class="column">
+            <br><br>
+            <div class="clearfix">
+                <a href="http://eight.nl" class="right eight-logo">
+                    <img src="https://hammerjs.github.io/assets/img/eight-white.png" width="60">
+                </a>
+
+                <a
+                        href="//twitter.com/share"
+                        data-text="Stop, hammertime! Touch gestures for your webapp #touch #javascript #hammerjs"
+                        class="twitter-share-button">推特</a>
+
+                <iframe src="//ghbtns.com/github-btn.html?user=hammerjs&amp;repo=hammer.js&amp;type=watch&amp;count=true"
+                        allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>
+            </div>
+            <br><br>
+        </div>
+    </div>
+</div>
+
+<script src="https://hammerjs.github.io/dist/hammer.js"></script>
+<script src="https://hammerjs.github.io/dist/hammer-time.js"></script>
+<script src="https://hammerjs.github.io/assets/js/index.js"></script>
+
+</body>
+</html>
