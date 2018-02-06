@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>技巧和诀窍 - Hammer.js中文</title>
+
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Add multi-touch gestures to your webpage.">
+    <link rel="canonical" href="/tips/">
+
+    <link rel="icon" href="https://hammerjs.github.io/assets/img/favicon.ico">
+    <link rel="stylesheet" href="https://hammerjs.github.io/assets/css/index.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,800,600">
+</head>
+
+<body>
+<div class="header">
+    <div class="row">
+        <div class="medium-4 columns">
+            <a class="logo" href="../">Hammer.js中文</a>
+        </div>
+        <div class="medium-8 columns">
+            <ul class="inline-list main-nav">
+                <li><a href="../getting-started/">文档</a></li>
+                <li><a href="https://stackoverflow.com/questions/tagged/hammer.js">支持</a></li>
+                <li><a href="https://github.com/hammerjs/hammer.js/blob/master/CONTRIBUTING.md">贡献</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="medium-3 columns">
+        <a href="#" class="toggle-sidebar">Toggle navigation</a>
+        <div class="sidebar">
+            <h4>概要</h4>
+            <ul class="side-nav">
+                <li><a href="../getting-started">入门指南</a></li>
+                <li><a href="../tips">技巧</a></li>
+                <li><a href="/browser-support">Browser support</a></li>
+                <li><a href="/examples">Examples</a></li>
+                <li><a href="/changelog">Changelog</a></li>
+            </ul>
+            <h4>Hammer</h4>
+            <ul class="side-nav">
+                <li><a href="/api">API</a></li>
+                <li><a href="/jsdoc">JSDoc</a></li>
+                <li><a href="/touch-action">Touch-action</a></li>
+                <li><a href="/recognize-with">Recognize With</a></li>
+                <li><a href="/require-failure">Require Failure</a></li>
+                <li><a href="/toggle-recognizer">Toggle Recognizer</a></li>
+            </ul>
+            <h4>Recognizers</h4>
+            <ul class="side-nav">
+                <li><a href="/recognizer-pan">Pan</a></li>
+                <li><a href="/recognizer-pinch">Pinch</a></li>
+                <li><a href="/recognizer-press">Press</a></li>
+                <li><a href="/recognizer-rotate">Rotate</a></li>
+                <li><a href="/recognizer-swipe">Swipe</a></li>
+                <li><a href="/recognizer-tap">Tap</a></li>
+            </ul>
+            <h4>Extensions</h4>
+            <ul class="side-nav">
+                <li><a href="/jquery-plugin">jQuery plugin</a></li>
+                <li><a href="/angularjs-directive">Angular.js directive</a></li>
+                <li><a href="/touch-emulator">Emulate multi-touch</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="medium-9 columns">
+        <h1 id="tips-n-tricks">技巧</h1>
+
+        <h3 id="event-delegation-and-dom-events">事件委托和DOM事件</h3>
+        <p>Hammer 通过 <code class="highlighter-rouge">domEvents: true</code> 选项触发DOM事件。 这里将提供像 <code class="highlighter-rouge">stopPropagation()</code> 的方法， 因此你可以使用事件委托。 Hammer 不会解开绑定的事件。</p>
+
+        <h3 id="try-to-avoid-vertical-panswipe">尽量避免垂直的平移(pan)/滑动(swipe)</h3>
+        <p>垂直的平移是用来滚动页面的，一些(旧的)浏览器不会发送事件，所以Hammer无法识别这些手势。 选项将提供另一种方法来执行相同的操作。</p>
+
+        <h3 id="test-on-a-real-device">真实设备测试</h3>
+        <p>有时候Hammer只是需要一些微调， 比如滑动速度或其他一些阈值。 另外,
+            为了在较慢的设备上获得更好的性能，您应该尽量让回调函数尽可能地简单。
+            这样的网站如 <a href="http://jankfree.org/">JankFree.org</a> 有关于如何提高性能的文章。</p>
+
+        <h3 id="remove-tap-highlight-on-windows-phone">移除Windows Phone上的点击亮点</h3>
+        <p>当你点击一个元素时，IE10和IE11在Windows Phone上有一个小的亮点。添加这个meta标记将移除这个。</p>
+
+        <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"msapplication-tap-highlight"</span> <span class="na">content=</span><span class="s">"no"</span> <span class="nt">/&gt;</span>
+</code></pre></div></div>
+
+        <h3 id="i-cant-select-my-text-anymore">“我再也不能选择我的文本了”</h3>
+        <p>Hammer设置一个属性，可以改善桌面端的平移体验。 通常，桌面浏览器会在拖拽页面时选择文本。 这个 <code class="highlighter-rouge">user-select</code> css 属性可以禁止它。</p>
+
+        <p>如果您关心的是文本选择，而不是桌面体验，您可以简单地从默认选项中删除该选项。在创建实例之前确保您这样做。</p>
+
+        <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">delete</span> <span class="nx">Hammer</span><span class="p">.</span><span class="nx">defaults</span><span class="p">.</span><span class="nx">cssProps</span><span class="p">.</span><span class="nx">userSelect</span><span class="p">;</span>
+</code></pre></div></div>
+
+        <h3 id="after-a-tap-also-a-click-is-being-triggered-i-dont-want-that">“点击一下，也会被触发，我不想那样！”</h3>
+        <p>这个点击事件也被称为“鬼点击”。我已经创建了一个小函数来防止触碰后的点击。从<a href="https://developers.google.com/mobile/articles/fast_buttons#ghost">Ryan Fioravanti</a>这篇文章中得到了很大的启发。</p>
+
+        <ul>
+            <li>https://gist.github.com/jtangelder/361052976f044200ea17</li>
+        </ul>
+
+
+        <p class="edit-this-page">
+            <a href="https://github.com/hammerjs/hammerjs.github.io/edit/master/getting-started.md">
+                编辑这个页面在 GitHub
+            </a>
+        </p>
+    </div>
+</div>
+<div class="footer">
+    <div class="row">
+        <div class="column">
+            <br><br>
+            <div class="clearfix">
+                <a href="http://eight.nl" class="right eight-logo">
+                    <img src="https://hammerjs.github.io/assets/img/eight-white.png" width="60">
+                </a>
+
+                <a href="//twitter.com/share" data-text="Stop, hammertime! Touch gestures for your webapp #touch #javascript #hammerjs" class="twitter-share-button">推特</a>
+
+                <iframe src="//ghbtns.com/github-btn.html?user=hammerjs&amp;repo=hammer.js&amp;type=watch&amp;count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>
+            </div>
+            <br><br>
+        </div>
+    </div>
+</div>
+
+<script src="https://hammerjs.github.io/dist/hammer.js"></script>
+<script src="https://hammerjs.github.io/dist/hammer-time.js"></script>
+<script src="https://hammerjs.github.io/assets/js/index.js"></script>
+
+</body>
+</html>
